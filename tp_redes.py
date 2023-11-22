@@ -15,99 +15,71 @@ with open(filename, 'w') as f:
 with open(filename) as file:
     datos = json.load(file)
 
-# prueba
-# print(datos[0]['country'])
 
-# buscar libros posteriores a un año
-def buscar_libros_posterior_anio(libros, anio_buscado):
-
-    libros_encontrados = [libro for libro in libros if libro["year"] > anio_buscado]
+# buscar libros en un año puntual
+def buscar_libros_igual_anio(libros, anio_buscado):
+    libros_encontrados = [libro for libro in libros if libro["year"] == anio_buscado]
     return libros_encontrados
 
-
-anio_buscado = 1950
-resultados = buscar_libros_posterior_anio(datos, anio_buscado)
-
-print(f"Libros publicados después de {anio_buscado}:")
-for libro in resultados:
-    print(libro['title'])
-
-print('----------------------------------------------------------------------------')
-
-# buscar libros entre dos años
-def buscar_libros_entre_anios(libros, anio_inicio, anio_fin):
- 
-    libros_encontrados = [
-        libro for libro in libros if anio_inicio <= libro["year"] <= anio_fin
-    ]
-    return libros_encontrados
-
-
-# anio_inicio = 1950
-# anio_fin = 1960
-
-# resultados = buscar_libros_entre_anios(datos, anio_inicio, anio_fin)
-
-# print(f"Libros publicados entre {anio_inicio} y {anio_fin}:")
-# for libro in resultados:
-#     print(libro['title'])
-
-
-
-
+# buscar libros anteriores a un determinado año
 def buscar_libros_menores_anio(libros, anio_buscado):
-
     libros_encontrados = [libro for libro in libros if libro["year"] < anio_buscado]
     return libros_encontrados
 
+# buscar libros posteriores a un determinado año
+def buscar_libros_posterior_anio(libros, anio_buscado):
+    libros_encontrados = [libro for libro in libros if libro["year"] > anio_buscado]
+    return libros_encontrados
 
-
-def buscar_libros_por_autor(libros, autor):
-
-    libros_encontrados = [libro for libro in libros if autor.lower() in libro["author"].lower()]
+# buscar libros entre dos años
+def buscar_libros_entre_anios(libros, anio_inicio, anio_fin):
+    libros_encontrados = [
+        libro for libro in libros if anio_inicio <= libro["year"] <= anio_fin]
     return libros_encontrados
 
 
-def buscar_libros_pais(libros, pais):
+# buscar libro por autor
+def buscar_libros_por_author(libros, author):
 
-    libros_encontrados = [libro for libro in libros if pais.lower() in libro["country"].lower()]
+    libros_encontrados = [libro for libro in libros if author.lower() in libro["author"].lower()]
     return libros_encontrados
 
-# print('Libros argentina: ')
-# print(buscar_libros_pais(datos, 'arg'))
+# buscar libro por pais
+def buscar_libros_country(libros, country):
 
-
-def buscar_libros_por_title(libros, titulo):
-
-    libros_encontrados = [libro for libro in libros if titulo.lower() in libro["title"].lower()]
+    libros_encontrados = [libro for libro in libros if country.lower() in libro["country"].lower()]
     return libros_encontrados
 
 
+# buscar libro por titulo
+def buscar_libros_por_title(libros, title):
+
+    libros_encontrados = [libro for libro in libros if title.lower() in libro["title"].lower()]
+    return libros_encontrados
+
+# buscar libro por lenguaje
 def buscar_libros_por_lenguaje(libros, lenguage):
 
     libros_encontrados = [libro for libro in libros if lenguage.lower() in libro["lenguage"].lower()]
     return libros_encontrados
 
 
-# buscar libros menpres a tal pagina
-def buscar_libros_menores_pagina(libros, pages):
+# buscar libros con un numero de paginas especifico
+def buscar_libros_pages(libros, pages):
+    libros_encontrados = [libro for libro in libros if libro["pages"] == pages]
+    return libros_encontrados
 
+# buscar libros mcon menos paginas que n
+def buscar_libros_menores_page(libros, pages):
     libros_encontrados = [libro for libro in libros if libro["pages"] > pages]
     return libros_encontrados
 
+# buscar libros con mas paginas que n
+def buscar_libros_mayores_page(libros, pages):
+    libros_encontrados = [libro for libro in libros if libro["pages"] > pages]
+    return libros_encontrados
 
-anio_buscado = 300
-resultados = buscar_libros_posterior_anio(datos, anio_buscado)
-
-print(f"Libros publicados después de {anio_buscado}:")
-for libro in resultados:
-    print(libro['title'])
-
-print('----------------------------------------------------------------------------')
-
-# buscar libros entre dos años
-def libros_encontrados_entre_paginas(libros, pag_desde, pag_hasta):
- 
-    libros_encontrados = [
-        libro for libro in libros if pag_desde <= libro["pages"] <= pag_hasta]
+# buscar libros con paginas entre n y m
+def buscar_libros_entre_pages(libros, pag_desde, pag_hasta):
+    libros_encontrados = [libro for libro in libros if pag_desde <= libro["pages"] <= pag_hasta]
     return libros_encontrados
