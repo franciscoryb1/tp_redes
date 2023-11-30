@@ -56,18 +56,17 @@ def buscar_libros_country(libros, country):
     return libros_encontrados
 
 
-# buscar libro por titulo
-# def buscar_libros_por_title(libros, title):
-#     libros_encontrados = [libro for libro in libros if title.lower() in libro["title"].lower()]
-#     return libros_encontrados
-
+#buscar libro por titulo
 def buscar_libros_por_title(libros, title):
-    indices_y_libros = {i: libro for i, libro in enumerate(libros) if title.lower() in libro["title"].lower()}
-    return indices_y_libros
+    libros_encontrados = [libro for libro in libros if title.lower() in libro["title"].lower()]
+    return libros_encontrados
+
+# def buscar_libros_por_title(libros, title):
+#     indices_y_libros = {i: libro for i, libro in enumerate(libros) if title.lower() in libro["title"].lower()}
+#     return indices_y_libros
 
 # buscar libro por lenguaje
 def buscar_libros_por_lenguaje(libros, lenguage):
-
     libros_encontrados = [libro for libro in libros if lenguage.lower() in libro["lenguage"].lower()]
     return libros_encontrados
 
@@ -96,3 +95,13 @@ def buscar_libros_entre_pages(libros, pag_desde, pag_hasta):
 def borrar(libros, indices_eliminar):
     for indice in sorted(indices_eliminar, reverse=True):
         libros.pop(int(indice))
+
+# borrar por titulo
+def borrar_por_titulo(libros, title):
+    libros_a_eliminar = buscar_libros_por_title(libros, title)
+    #return libros_a_eliminar
+    for libro in libros_a_eliminar:
+        if libro in libros:
+            libros.remove(libro)
+    return libros_a_eliminar
+    #return
